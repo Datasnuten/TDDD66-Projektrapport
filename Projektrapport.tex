@@ -7,6 +7,7 @@
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage{cite}
 
 \graphicspath{}
 
@@ -19,7 +20,9 @@
 \begin{document}
 \pagenumbering{gobble}
 
-\title{TDDD66 Projekt}
+\title{%
+	TDDD66 Projekt \\
+	\large WiFi Multicasting}
 \maketitle
 
 \clearpage
@@ -61,16 +64,95 @@ We are going to do research to understand more how multicast is used, how it wor
 
 \section{Background}
 
-\subsection{Theory}
+\subsection{What is multicasting?}
+
+While a brief explanation was given in the introduction, we feel like a clarification is needed. With multicasting you are typically referring to the use of multicasting in the network layer protocol, also called IP multicasting. When we started this project, we ourself initially thought that multicasting was the process of multicasting a message on the physical layer, e.g. in our case with WiFi multicasting, perhaps a password-protected network where only the select few connected to the wireless network would be able to decipher and read the outgoing frames sent from the access point out of everyone within the vicinity who could detect them, which would make out a multicast network. This is naturally not how multicasting really works.
+	Multicasting is actually the act of transmitting information in the form of “multicast packets”. These packets are pretty similar to the standard unicast packets, commonly referred to as network packets, but they differ in some ways. While a unicast packet always has one address assigned to a respective receiver, multicast packets have one or more addresses, or a group address which delivers the information to every destination. This is also why multicasting is commonly referred to as “IP multicasting”, because this process is handled at the Network Layer. The perhaps obvious pro to this method of distributing information is that only one sent message or frame is required to share a piece of data to multiple receivers, as opposite to one frame times the number of receivers by using unicasting. A huge chunk of bandwidth can be saved this way, the user can expect its information to be delivered to their device faster and lots of energy and resources can be potentially saved using this method of distribution.
+	These pros sounds great, right? Then why aren’t we using multicasting over the place? Well, multicasting has its cons as well. In our case with WiFi multicasting, while the sender establishes a stable connection with the wireless access point in which the AP acknowledges every received message, the same is not done between the access point and the multiple receivers in the actual multicasting proccess. Much like the UDP protocol, there is no guarantee that a multicasted message is delivered to the designated destination, because the receiver doesn’t reply with any acknowledgement of receiving the given message. Because of this fact, multicasting is most suited for streaming media to a select amount of receivers at a local network. 
+	There’s also another con to be considered when you’d want to use multicasting in a network. If there is one or more receivers in the multicast network who are slower than the rest of the receivers in the network, for example if this receiver is utilizing a WiFi power saving mode, the entire multicasting network is slowed down to adjust to this one, or more, users. For example, in the case of the power saving mode, several frames are buffered at the access point. DTIM (Delivery Traffic Indicator Message) are then included with the frames to be multicasted, which are a sort of timer of when the access point should release its buffer to all the recipients and not only the ones who have the power save mode enabled. The DTIM included in the frames makes the receivers aware of when to “wake up” from their power saving mode and be ready to receive the buffered batch of frames. \cite{impMult} 
+	These pros and cons raises the question of when exactly multicasting would be preferred over unicasting.
+
+
+
+\subsection{Multicasting History}
+
+The year was early 1980 and the Stanford University student Steve Deering was tasked with developing a distributed operating system. It was to be called Vsystem and consisted of a few number of computers able to communicate with eachother using a single Ethernet segment. This way the computers could collectively solve tasks together. The system allowed one of the computers in the network to send messages to the rest of the group via MAC layer multicasting. This method of distributing information to several computers at once was nothing short of a success and the need for more computers to be added to this multiprocessing system arose. The problem they faced then was that the other computers available to them was located at the other side of the campus, seperated by multiple routers in between the networks. As a result the system had to be extended to allow operation on the layer 3 of the OSI reference model so that the other computers could participate in the multiprocessing system. Steve Deerling then used existing technologies to develop a new distance vector-based multicast routing protocol suited to the system he had imagined, which led into further research about IP multicasting. \cite[s.~7]{briefHist}
+
 
 \subsection{Experiment}
 
-\newpage
+We are going to use a network simulating program such as Cisco to simulate a network where we compare multicast performance with unicast. The main purpose is to find out approximately how many routers and devices a local network should contain before it is worth implementing multicast instead of unicast. We are going to start in a small scale and see if there is any different in bandwidth depending on either you use multicast or unicast. Then we are successively going to increase the size of the network to see when you reach the point where the multicast technology is using less bandwidth and increasing the speed of the data that is sent within the network.
+We also want to try and see if we can create our own multicast network within our home. This could maybe be in favor for example if you have 2 computers and you want to play the music on both at the same time in different parts of your house. We are not really sure on how this is going to be done at this point of time but the basics are that we need to connect these devices over the same IP adress. You could compare it with a walkie talkie where everyone on a specific channel can communicate with everyone except in this case the channel is replaced with an IP adress. We have to allocate the same a class D IP adress to each device in the network that we can call the group adress. 
 
-\section{Resultat}
+The device that wants to send and receive multicast datagrams must be in a multicast group. These groups are on a particular network interface and have the IP multicast-adress of class D. The range of the D-classifed IP adress is from 240.0.0.0 to 239.255.255.255. Basically you allocate the device that you want to send and recieve multicast datagrams from and to a specific class D adress. Now then device knows that if a datagram is sent to that specific IP adress it wants to explore it further by sending it up to the next layer. And same thing for the host when it sends the multicast datagram it as to send it to a established class D adress. This is what’s called IP multicasting and it is what we are mostly going to investigate but there is also something called hardware/ethernet multicasting. The main difference between these two multicasting techniques is that IP Multicasting is using the IP adress to tell a unicast, multicast and broadcast apart while the hardware multicasting is looking at the MAC adress. When a normal packet is sent it is probably sent using unicast and the MAC source adress is the actual MAC adress of the source. But when a multicast datagram is sent the MAC source is not the MAC source of the real source, it’s a multicast MAC source that the other devices in the multicast group knows. The way it tells the difference is by the first number in the MAC adress. Say our computers MAC adress is D4:3D:7E:9C:0C:86. If we take a look at the first number, D4 and convert it from hexadecimal to binary we get 1101 0100 and the last number is a 0 there, the last one i 0100. That tells the device that it is not a multicast MAC adress, but if it would have been a 1 instead of a 0 then it would have been a multicast MAC adress. For example if the MAC adress was 01:00:5E:00:00:00 and once again we take a look at the first number, 01. Convert it from hexadecimal to binary and we get 0000 0001, a one as the last number which tells us it is a MAC adress for multicasting.
+
+When we will try to setup the multicast network at home we are going to use a program that tests if multicast messages is being transmitted and received. It works such as you decide which nodes, in this case devices on the network, that will send multicast datagrams and which nodes that will recieve the multicast datagrams. By starting very basic we can quickly test if our multicast network is functionally or not and then move on to more difficult tasks. As we mentioned before about playing music on two computers at the same time, this is a goal that we would be really happy if we succeeded to accomplish. Or start a movie at the same time even though you are not in the same room as the other computer. This might require more work and knowledge than we think but it is still our goal. We are happy if we just succeed with just sending a message to all computers in the multicast network at the same time, creating our own sms group over the computers in the house.
+
+We believe that it really depends on what you send within the network that decides if multicast or unicast should be used more than the size of the network. Imagine just sending out a message saying “Merry Christmas!” to everyone’s computer in the office. That wouldn’t take much bandwidth even if it was sent using unicast and therefore multicast would not be needed. But if we have the same scenario but instead we send a live stream that greets merry christmas, then alot of the bandwidth would have been allocated for that stream. If we instead use multicast in the second scenario the bandwidth would have been the same as if only one was watching the stream and alot of bandwidth would have been saved. So we have to look at both what is sent and how many it is sent to before deciding whether to use multicast or unicast. We also think that with todays technology unicast is probably the best to use in most cases and multicast only in some rare situations. \cite{multExplained} \cite{whatIsMult} \cite{understandIpMult} 
+
+
+\clearpage
+
+\section{Results}
 
 \subsection{Presentation of results}
 
 \subsection{Discussing results}
+
+\clearpage
+
+\begin{thebibliography}{9}
+
+\bibitem{impMult}
+  Jim Geier,
+  \emph{Implementing Wi-Fi Multicast Solutions}.
+  \newline
+  Published: 2004-11-09. Fetched: 2015-10-25 \newline
+  URL: http://www.wi-fiplanet.com/tutorials/article.php/3433451/Implementing-Wi-Fi-Multicast-Solutions.htm
+  
+\bibitem{briefHist}
+	Beau Williamson,
+	\emph{Developing IP Multicast Networks}.
+	\newline
+Cisco Press; 1 edition (October 29, 1999).
+
+\bibitem{multExplained}
+  Juan-Mariano de Goyeneche,
+  \emph{Multicast Explained}.
+  \newline
+  Published: 1998. Fetched: 2015-10-25 \newline
+  URL: http://www.tldp.org/HOWTO/Multicast-HOWTO-2
+  
+\bibitem{whatIsMult}
+  Windows Server,
+  \emph{What Is IPv4 Multicasting?}.
+  \newline
+  Fetched: 2015-10-25 \newline
+  URL: https://technet.microsoft.com/en-us/library/cc772041(v=ws.10).aspx
+  
+  \bibitem{understandIpMult}
+  Page Administrator,
+  \emph{Multicast - Understand how IP multicast works}.
+  \newline
+  Fetched: 2015-10-25 \newline
+  URL: http://www.firewall.cx/networking-topics/general-networking/107-network-multicast.html
+  
+  
+  
+%\bibitem{randall2008}
+%	Randall D. Knight,
+%	\emph{Physics for Scientists and Engineers: A %Strategic Approach with Modern Physics (2nd %Edition)}.
+%	\newline
+%Addison-Wesley, 2a upplagan, 2008.
+
+%\bibitem{polesAndZeros}
+
+%	\emph{Understand Poles and Zeros}.
+%	\newline
+%	Publicerad 2002-11-01. Hämtat: 2015-06-01.
+%	\newline
+%	URL: http://web.mit.edu/2.14/www/Handouts/PoleZero.pdf
+
+\end{thebibliography}
 
 \end{document}

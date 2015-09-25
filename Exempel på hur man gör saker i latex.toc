@@ -1,0 +1,41 @@
+\select@language {swedish}
+\contentsline {section}{\numberline {1}Inledning}{3}
+\contentsline {subsection}{\numberline {1.1}Syfte}{3}
+\contentsline {subsection}{\numberline {1.2}M\IeC {\r a}l}{3}
+\contentsline {section}{\numberline {2}Bakgrund}{3}
+\contentsline {subsection}{\numberline {2.1}Linj\IeC {\"a}rt system}{4}
+\contentsline {subsection}{\numberline {2.2}Tidsinvarians}{4}
+\contentsline {section}{\numberline {3}V\IeC {\r a}rt LTI system}{5}
+\contentsline {subsection}{\numberline {3.1}Idealisering}{5}
+\contentsline {subsection}{\numberline {3.2}Gravitationskraften $F_g$}{6}
+\contentsline {subsection}{\numberline {3.3}Fj\IeC {\"a}derkraften $F_f$}{6}
+\contentsline {subsection}{\numberline {3.4}D\IeC {\"a}mpningskraften $F_d$}{7}
+\contentsline {subsection}{\numberline {3.5}Slutgiltig differentialekvation}{7}
+\contentsline {section}{\numberline {4}Systemegenskaper}{8}
+\contentsline {subsection}{\numberline {4.1}Linj\IeC {\"a}ritetsbevis}{8}
+\contentsline {subsection}{\numberline {4.2}Systemfunktionen}{9}
+\contentsline {subsection}{\numberline {4.3}Impulssvar}{11}
+\contentsline {subsection}{\numberline {4.4}Stabilitetsbevis}{12}
+\contentsline {subsection}{\numberline {4.5}Stegsvar}{14}
+\contentsline {subsection}{\numberline {4.6}Frekvensfunktion}{15}
+\contentsline {subsection}{\numberline {4.7}Amplitud- och faskarakt\IeC {\"a}ristik}{16}
+\contentsline {subsection}{\numberline {4.8}Resonansfrekvens}{17}
+\contentsline {subsection}{\numberline {4.9}Sinussvar}{18}
+\contentsline {section}{\numberline {5}Variationer av systemet}{20}
+\contentsline {subsection}{\numberline {5.1}Variation av massan}{20}
+\contentsline {subsection}{\numberline {5.2}Variation av d\IeC {\"a}mpningskonstant}{21}
+\contentsline {subsection}{\numberline {5.3}Variation av fj\IeC {\"a}derkonstanten}{22}
+\contentsline {section}{\numberline {6}Diskussion}{22}
+\contentsline {subsection}{\numberline {6.1}Idealisering}{22}
+\contentsline {subsection}{\numberline {6.2}Vad som har analyserats och varf\IeC {\"o}r}{23}
+\contentsline {subsection}{\numberline {6.3}Vad som inte har analyserats och varf\IeC {\"o}r}{23}
+\contentsline {section}{\numberline {7}Komplettering}{26}
+\contentsline {subsection}{\numberline {7.1}J\IeC {\"a}mviktsl\IeC {\"a}get}{26}
+\contentsline {subsection}{\numberline {7.2}D\IeC {\"a}mpningskraft}{26}
+\contentsline {subsection}{\numberline {7.3}Differentialekvationen}{27}
+\contentsline {subsection}{\numberline {7.4}Val av konstanter}{27}
+\contentsline {subsection}{\numberline {7.5}Laplacetransform}{28}
+\contentsline {subsection}{\numberline {7.6}Stabilitetsbevis}{28}
+\contentsline {subsection}{\numberline {7.7}Stegsvar}{29}
+\contentsline {subsection}{\numberline {7.8}Amplitud- och faskarakt\IeC {\"a}ristik}{29}
+\contentsline {subsection}{\numberline {7.9}Impuls- och stegsvar f\IeC {\"o}r olika system}{30}
